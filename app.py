@@ -1,3 +1,4 @@
+# Install required libraries
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -39,17 +40,15 @@ page = st.sidebar.radio(
         ":bar_chart: Data",
         ":clipboard: Statistika Deskriptif",
         ":chart_with_upwards_trend: Visualisasi",
+        ":writing_hand: Author",
     ]
 )
 
 
 if page == ":house: Overview":
-    st.markdown("<h1 style='text-align: center;'>Overview</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Dashboard Trend Pernikahan di Kabupaten Bekasi</h1>", unsafe_allow_html=True)
     st.markdown("""
-    Halaman ini memberikan gambaran umum tentang data time series yang tersedia.
-    Anda dapat melihat tren nilai, moving average, dan metode forecasting lainnya.
-    Gunakan navigasi di sidebar untuk melihat bagian yang berbeda dari dashboard.
-    """)
+Dashboard ini dibuat sebagai bagian dari laporan kerja praktik kami. Data yang dianalisis meliputi jumlah pernikahan per bulan di Kabupaten Bekasi selama periode 2020-2024, serta data pernikahan per kecamatan di Kabupaten Bekasi pada periode yang sama""")
 
 elif page == ":bar_chart: Data":
     st.header("Data")
@@ -141,6 +140,29 @@ elif page == ":chart_with_upwards_trend: Visualisasi":
 
 
     # Contoh tombol aksi
+elif page == ":writing_hand: Author":
+    nama_file_foto1 = 'foto1.png'
+    nama_file_foto2 = 'foto2.png'
+
+    st.markdown("<h2 style='text-align: center;'>Author</h2>", unsafe_allow_html=True)
+
+    # Buat dua kolom dengan lebar yang sama
+    kolom1, kolom2 = st.columns(2)
+
+    # Tampilkan gambar pertama di kolom pertama
+    with kolom1:
+        try:
+            st.image(nama_file_foto1, caption='Foto 1')
+        except Exception as e:
+            st.error(f"Gagal memuat {nama_file_foto1}: {e}")
+            st.info("Pastikan file gambar ada di lokasi yang benar.")
+        # Tampilkan gambar kedua di kolom kedua
+    with kolom2:
+        try:
+            st.image(nama_file_foto2, caption='Foto 2')
+        except Exception as e:
+            st.error(f"Gagal memuat {nama_file_foto2}: {e}")
+            st.info("Pastikan file gambar ada di lokasi yang benar.")
 
 
 # Footer
