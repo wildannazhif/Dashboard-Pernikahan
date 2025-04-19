@@ -167,4 +167,4 @@ elif page == ":writing_hand: Author":
 
 # Footer
 st.sidebar.markdown("---")
-st.sidebar.markdown("Dibuat dengan Streamlit")
+st.sidebar.markdown("Departemen Statistika ITS")
