@@ -108,7 +108,7 @@ elif page == ":chart_with_upwards_trend: Visualisasi":
     columns_to_plot = st.multiselect("Kolom:", df.columns, default=['Jumlah'])
 
     if columns_to_plot:
-        fig = px.line(df, y=columns_to_plot, title='Timeseries Plot',
+        fig = px.line(df, y=columns_to_plot, title='Peramalan Jumlah Pernikahan Perbulan Menggunakan Metode Time Series',
                       labels={'date': 'Tanggal', 'value': 'Nilai'},
                       template="plotly_white")
         fig.update_traces(mode='lines+markers')
