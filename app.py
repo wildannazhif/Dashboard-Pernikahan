@@ -165,7 +165,7 @@ elif page == ":chart_with_upwards_trend: Visualisasi":
     else:
         st.warning("Kolom 'district' tidak ditemukan dalam data untuk membuat bar plot kecamatan.")    # Contoh tombol aksi
 elif page == ":writing_hand: Author":
-    nama_file_foto1 = 'foto1.JPG'
+    nama_file_foto1 = 'foto1.jpg'
     nama_file_foto2 = 'foto2.jpg'
 
     st.markdown("<h2 style='text-align: center;'>Author</h2>", unsafe_allow_html=True)
