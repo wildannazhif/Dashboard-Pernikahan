@@ -102,20 +102,47 @@ elif page == ":clipboard: Statistika Deskriptif":
         st.warning("Kolom 'Jumlah' tidak ditemukan untuk menampilkan statistik.")
 
 elif page == ":chart_with_upwards_trend: Visualisasi":
-    st.markdown("<h1 style='text-align: center;'>Time Series Plot</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Peramalan Jumlah Pernikahan Perbulan Menggunakan Metode Time Series</h2>", unsafe_allow_html=True)
 
     # Tombol untuk memilih kolom yang akan divisualisasikan
     columns_to_plot = st.multiselect("Kolom:", df.columns, default=['Jumlah'])
 
     if columns_to_plot:
-        fig = px.line(df, y=columns_to_plot, title='Peramalan Jumlah Pernikahan Perbulan Menggunakan Metode Time Series',
-                      labels={'date': 'Tanggal', 'value': 'Nilai'},
+        fig = px.line(df, y=columns_to_plot, title='Time Series Plot',
+                      labels={'date': 'Tanggal', 'value': 'Jumlah Pernikahan'},
                       template="plotly_white")
         fig.update_traces(mode='lines+markers')
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("Pilih setidaknya satu kolom untuk menampilkan grafik.")
-    st.markdown("<h1 style='text-align: center;'>Barplot perkecamatan</h1>", unsafe_allow_html=True)
+    
+    # Tambahkan barplot tahunan
+    st.markdown("<h2 style='text-align: center;'>Jumlah Pernikahan Kabupaten Bekasi Pertahun dari 2020-2024</h2>", unsafe_allow_html=True)
+    
+    # Asumsikan df memiliki datetime index atau kolom tanggal
+    if 'date' in df.columns:
+        # Jika ada kolom date, gunakan itu
+        df_yearly = df.copy()
+        df_yearly['year'] = pd.DatetimeIndex(df_yearly['date']).year
+    else:
+        # Jika tidak ada kolom date, asumsikan menggunakan index datetime
+        df_yearly = df.copy()
+        df_yearly['year'] = df_yearly.index.year
+    
+    # Hitung jumlah per tahun
+    yearly_counts = df_yearly.groupby('year')['Jumlah'].sum().reset_index()
+    
+    # Buat barplot tahunan
+    fig_yearly = px.bar(yearly_counts, x='year', y='Jumlah',
+                        title='Jumlah Pernikahan per Tahun',
+                        labels={'year': 'Tahun', 'Jumlah': 'Jumlah Pernikahan'},
+                        template="plotly_white",
+                        color_discrete_sequence=px.colors.sequential.Plasma)
+    
+    fig_yearly.update_layout(xaxis=dict(tickmode='linear'))
+    st.plotly_chart(fig_yearly, use_container_width=True)
+    
+    st.markdown("<h2 style='text-align: center;'>Jumlah Pernikahan Kabupaten Bekasi Perkecamatan</h2>", unsafe_allow_html=True)
     # Pastikan df2 sudah terdefinisi dan memiliki kolom yang sesuai
     if 'district' in df2.columns:
         # Ambil daftar tahun yang tersedia dari kolom df2 (selain 'district')
@@ -127,19 +154,16 @@ elif page == ":chart_with_upwards_trend: Visualisasi":
             if selected_year in df2.columns:
                 fig_kecamatan = px.bar(df2, x='district', y=selected_year,
                                         title=f'Jumlah Data per Kecamatan ({selected_year})',
-                                        labels={'district': 'Kecamatan', selected_year: f'Jumlah Tahun {selected_year}'},
+                                        labels={'district': 'Kecamatan', selected_year: f'Jumlah Pernikahan Tahun {selected_year}'},
                                         template="plotly_white",
-                                        color_discrete_sequence=px.colors.sequential.Viridis) # Tambahkan parameter ini
+                                        color_discrete_sequence=px.colors.sequential.Viridis)
                 st.plotly_chart(fig_kecamatan, use_container_width=True)
             else:
                 st.warning(f"Kolom tahun '{selected_year}' tidak ditemukan dalam data.")
         else:
             st.warning("Tidak ada data tahun yang tersedia untuk ditampilkan.")
     else:
-        st.warning("Kolom 'district' tidak ditemukan dalam data untuk membuat bar plot kecamatan.")
-
-
-    # Contoh tombol aksi
+        st.warning("Kolom 'district' tidak ditemukan dalam data untuk membuat bar plot kecamatan.")    # Contoh tombol aksi
 elif page == ":writing_hand: Author":
     nama_file_foto1 = 'foto1.png'
     nama_file_foto2 = 'foto2.png'
