@@ -165,8 +165,8 @@ elif page == ":chart_with_upwards_trend: Visualisasi":
     else:
         st.warning("Kolom 'district' tidak ditemukan dalam data untuk membuat bar plot kecamatan.")    # Contoh tombol aksi
 elif page == ":writing_hand: Author":
-    nama_file_foto1 = 'foto1.png'
-    nama_file_foto2 = 'foto2.png'
+    nama_file_foto1 = 'foto1.JPG'
+    nama_file_foto2 = 'foto2.jpg'
 
     st.markdown("<h2 style='text-align: center;'>Author</h2>", unsafe_allow_html=True)
 
@@ -176,14 +176,14 @@ elif page == ":writing_hand: Author":
     # Tampilkan gambar pertama di kolom pertama
     with kolom1:
         try:
-            st.image(nama_file_foto1, caption='Foto 1')
+            st.image(nama_file_foto1, caption='Wildan Nazhif Irsyadi (5003221109)')
         except Exception as e:
             st.error(f"Gagal memuat {nama_file_foto1}: {e}")
             st.info("Pastikan file gambar ada di lokasi yang benar.")
         # Tampilkan gambar kedua di kolom kedua
     with kolom2:
         try:
-            st.image(nama_file_foto2, caption='Foto 2')
+            st.image(nama_file_foto2, caption='Ahmad Alrifai (5003221108)')
         except Exception as e:
             st.error(f"Gagal memuat {nama_file_foto2}: {e}")
             st.info("Pastikan file gambar ada di lokasi yang benar.")
